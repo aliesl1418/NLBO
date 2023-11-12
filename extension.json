@@ -1,0 +1,14 @@
+{
+  "builtin": "False",
+  "default_enabled": "True",
+  "type": "extension",
+  "rocket_mode_compatible": "False",
+  "name": "NLBO",
+  "description": "Extensions for NLBO",
+  "author": "Ali Eslamifar",
+  "author_profile": "https://github.com/aliesl1418",
+  "url": "https://github.com/aliesl1418/pyrevitplus.git",
+  "website": "https://github.com/aliesl1418/pyrevitplus",
+  "image": "",
+  "dependencies": []
+}
