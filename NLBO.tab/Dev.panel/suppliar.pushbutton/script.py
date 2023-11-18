@@ -3,6 +3,7 @@ __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
 import re
+import Autodesk.Revit.DB as DB
 from pyrevit import forms
 from omniclass import *
 omniclass.filter_by_level(2)
@@ -14,15 +15,15 @@ name_code = omniclass.code_level
 #     if re.match("([\d]{2}\.[\d]{2}\.[\d]{2}\.00)\t",line):
 #         for ifc_product_name in re.findall("\t(.*?)\t", line):
 #             items.append(ifc_product_name)
-select_item = forms.SelectFromList.show(items, button_name='Select object')
+select_item = forms.SelectFromList.show(items, button_name='Select object', title='Please select object')
 index_selected = items.index(select_item)
 object_code = name_code[index_selected]
 # Create a message box
 message_box = forms.alert(
     object_code,
-    title="Important Message",
+    title="ifc_code",
+    warn_icon = False
 )
-
 # # Show the message box
 # message_box.open()
 
