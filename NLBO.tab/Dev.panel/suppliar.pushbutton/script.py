@@ -3,6 +3,8 @@ __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
 import re
+
+import pyrevit
 from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, ElementParameterFilter,BuiltInCategory, BuiltInParameter
 import clr
 from pyrevit import forms,revit,DB
@@ -33,24 +35,31 @@ collector = FilteredElementCollector(doc)
 elements = collector.WhereElementIsNotElementType().ToElementIds()
 selection = [doc.GetElement(x) for x in elements]
 x = 0
+table = [[0,0,0]]
 for element in selection:
    t = str(element.GetType())
    if re.match("^Autodesk.Revit.DB.FamilyInstance$",t):
       p = element.Symbol
       if object_code == p.get_Parameter(BuiltInParameter.OMNICLASS_CODE).AsString():
         c = p.LookupParameter('ProductURL').AsString()
-        print(c)
-        x = x + 1
-print(x)
+        m = p.LookupParameter('ModelLabel').AsString()
+        for d in table:
+            if d[0] == m :
+                d[1] = d[1]+1
+            else:
+                table.append([m, 0, c])
+
+output = pyrevit.output.get_output()
+output.add_style('body { color: blue; }')
+output.print_table(
+table_data=table,
+title="Object_Data",
+columns=["Model_Label", "Count", "PoductUrl"],
+formats=['', '', ''],
+last_line_style='color:red;'
+)
 
 
-
-
-      # if element.Symbol:
-      #  T = element.Symbol
-      #  if object_code == T.get_Parameter(BuiltInParameter.OMNICLASS_CODE).AsString():
-      #     p = T.LookupParameter('ProductURL').AsString()
-      #     print(p)
 
 
 

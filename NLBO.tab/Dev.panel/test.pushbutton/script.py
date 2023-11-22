@@ -2,24 +2,25 @@ __title__ = "NLBO supplier"
 __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
+import pyrevit
+from pyrevit import *
+from pyrevit import output
 
-
-
-#first_try
-from pyrevit import revit,DB
-from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, ElementParameterFilter,BuiltInCategory, BuiltInParameter
-import clr
-clr.AddReference('RevitAPI')
-doc = __revit__.ActiveUIDocument.Document
-uidoc = __revit__.ActiveUIDocument
-collector = FilteredElementCollector(doc)
-elements = collector.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElementIds()
-
-selection = [doc.GetElement(x) for x in elements]
-for element in selection:
-   T = element.GetType()
-   print(T)
-
+# #first_try
+# from pyrevit import revit,DB
+# from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, ElementParameterFilter,BuiltInCategory, BuiltInParameter
+# import clr
+# clr.AddReference('RevitAPI')
+# doc = __revit__.ActiveUIDocument.Document
+# uidoc = __revit__.ActiveUIDocument
+# collector = FilteredElementCollector(doc)
+# elements = collector.OfCategory(BuiltInCategory.OST_Doors).WhereElementIsNotElementType().ToElementIds()
+#
+# selection = [doc.GetElement(x) for x in elements]
+# for element in selection:
+#    T = element.GetType()
+#    print(T)
+#
 
    # T = element.Symbol
    # print(T)
@@ -70,3 +71,20 @@ for element in selection:
 # for element in selection:
 #  param = element.get_Parameter(guid).AsValueString()
 #  print(param)
+
+
+# data = [
+# ['row1', 'data', 'data', 80 ],
+# ['row2', 'data', 'data', 45 ],
+# ]
+# output = pyrevit.output.get_output()
+# output.add_style('body { color: blue; }')
+# output.print_table(
+# table_data=data,
+# title="Object_Data",
+# columns=["Object Name", "Count", "PoductUrl"],
+# formats=['', '', ''],
+# last_line_style='color:red;'
+# )
+table = []
+print(str(table[0]))
