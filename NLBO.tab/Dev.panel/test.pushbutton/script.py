@@ -2,9 +2,9 @@ __title__ = "NLBO supplier"
 __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
-import pyrevit
-from pyrevit import *
-from pyrevit import output
+# import pyrevit
+# from pyrevit import *
+# from pyrevit import output
 
 # #first_try
 # from pyrevit import revit,DB
@@ -86,5 +86,8 @@ from pyrevit import output
 # formats=['', '', ''],
 # last_line_style='color:red;'
 # )
-table = []
-print(str(table[0]))
+mlist = [1,2,3]
+m = 2
+if not m in mlist:
+ mlist.append(2)
+print(mlist)

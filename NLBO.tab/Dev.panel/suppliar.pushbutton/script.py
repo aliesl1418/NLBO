@@ -34,8 +34,7 @@ uidoc = __revit__.ActiveUIDocument
 collector = FilteredElementCollector(doc)
 elements = collector.WhereElementIsNotElementType().ToElementIds()
 selection = [doc.GetElement(x) for x in elements]
-x = 0
-table = [[0,0,0]]
+table = [[]]
 for element in selection:
    t = str(element.GetType())
    if re.match("^Autodesk.Revit.DB.FamilyInstance$",t):
@@ -44,10 +43,16 @@ for element in selection:
         c = p.LookupParameter('ProductURL').AsString()
         m = p.LookupParameter('ModelLabel').AsString()
         for d in table:
-            if d[0] == m :
+            if d == []:
+               table.remove([])
+               table.append([m, 1, c])
+            elif d[0] == m:
                 d[1] = d[1]+1
-            else:
-                table.append([m, 0, c])
+        mlit = []
+        mlist = [d[0] for d in table]
+        if not m in mlist:
+          table.append([m,1,c])
+
 
 output = pyrevit.output.get_output()
 output.add_style('body { color: blue; }')
