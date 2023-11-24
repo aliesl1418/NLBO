@@ -2,6 +2,9 @@ __title__ = "NLBO supplier"
 __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
+import pyrevit
+from pyrevit import output
+
 # import pyrevit
 # from pyrevit import *
 # from pyrevit import output
@@ -86,8 +89,11 @@ __doc__ = """ This is NLBO supllier application"""
 # formats=['', '', ''],
 # last_line_style='color:red;'
 # )
-mlist = [1,2,3]
-m = 2
-if not m in mlist:
- mlist.append(2)
-print(mlist)
+# from pyrevit import forms
+# ops = {'Sheet Set A': '[viewsheet1, viewsheet2, viewsheet3]',
+# 'Sheet Set B': '[viewsheet4, viewsheet5, viewsheet6]'}
+# res = forms.SelectFromList.show(ops,
+# multiselect=True,
+# name_attr='Name',
+# group_selector_title='Sheet Sets',
+# button_name='Select Sheets')
