@@ -13,8 +13,6 @@ from System import Windows
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
-    def Name = self.name
-
 
 # let's show the windows
 MyWindow().ShowDialog()
