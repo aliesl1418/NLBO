@@ -1,0 +1,10 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="project_client id" Height="200" Width="320">
+    <StackPanel Margin="20">
+        <Label Content="لطفا شناسه پروژه/کارفرمای خود را وارد کنید" FontFamily="B Nazanin" FontSize="16"
+               HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txt_id"  Margin="0,10,0,0" FontFamily="B Nazanin" FontSize="14"/>
+        <Button Content="ثبت" Margin="0,10,0,0" FontFamily="B Nazanin" FontSize="16" Width="132" Click="save"/>
+    </StackPanel>
+</Window>

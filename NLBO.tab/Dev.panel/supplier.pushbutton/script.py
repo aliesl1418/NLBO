@@ -1,0 +1,114 @@
+__title__ = "NLBO supplier"
+__author__ = "Ali Eslamifar"
+__doc__ = """ This is NLBO supllier application"""
+
+import re
+import pyrevit
+from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, ElementParameterFilter,BuiltInCategory, BuiltInParameter
+import clr
+from pyrevit import forms,revit,DB, script,UI
+from omniclass import *
+from project_client_id import *
+x = MyWindow()
+x.ShowDialog()
+project_client_id = x.project_client_id
+
+if project_client_id:
+    omniclass.filter_by_level(2)
+    items = omniclass.name_level
+    name_code = omniclass.code_level
+
+    select_item = forms.SelectFromList.show(items, button_name='Select object', title='Please select object')
+    if select_item:
+     index_selected = items.index(select_item)
+     object_code = name_code[index_selected]
+
+    # Create a message box
+     message_box = forms.alert(
+         object_code,
+         title="omniclass_code",
+         warn_icon = False
+     )
+     clr.AddReference('RevitAPI')
+     doc = __revit__.ActiveUIDocument.Document
+     uidoc = __revit__.ActiveUIDocument
+     collector = FilteredElementCollector(doc)
+     elements = collector.WhereElementIsNotElementType().ToElementIds()
+     selection = [doc.GetElement(x) for x in elements]
+     table = [[]]
+     for element in selection:
+        t = str(element.GetType())
+        if re.match("^Autodesk.Revit.DB.FamilyInstance$",t):
+           p = element.Symbol
+           if object_code == p.get_Parameter(BuiltInParameter.OMNICLASS_CODE).AsString():
+             c = p.LookupParameter('ProductURL').AsString()
+             m = p.LookupParameter('ModelLabel').AsString()
+             for d in table:
+                 if d == []:
+                    table.remove([])
+                    table.append([m, 1, c])
+                 elif d[0] == m:
+                     d[1] = d[1]+1
+             mlit = []
+             mlist = [d[0] for d in table]
+             if not m in mlist:
+               table.append([m,1,c])
+
+
+     output = pyrevit.output.get_output()
+     output.add_style('body { color: blue; }')
+     output.print_table(
+     table_data=table,
+     title="Object_Data",
+     columns=["Model_Label", "Count", "PoductUrl"],
+     formats=['', '', ''],
+     last_line_style='color:red;'
+     )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Show the message box
+# message_box.open()
+
+
+# import clr
+# clr.AddReference('System.windows.Forms')
+# clr.AddReference('IronPython.Wpf')
+#
+# #find the path of ui.xaml
+# from pyrevit import script
+# xamlfile = script.get_bundle_file('ui.xaml')
+#
+# #import wpf creator and base window
+# import wpf
+# from System import Windows
+#
+# class MyWindow(Windows.Window):
+#     def __init__(self):
+#         wpf.LoadComponent(self, xamlfile)
+#
+# # let's show the windows
+# MyWindow().ShowDialog()
+
