@@ -1,0 +1,45 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av"
+     Title="Product estimation table" Width="1321" Height="454" >
+        <StackPanel Margin="0,0,0,-1">
+            <DataGrid ItemsSource="{Binding MyData}" AutoGenerateColumns="False"
+               ScrollViewer.HorizontalScrollBarVisibility="Visible"
+               ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="5,5,5,20" Height="346">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontFamily" Value="B Nazanin"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="شناسه پروژه کارفرما" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="شناسه دسته‌بندی" Binding="{Binding Age}" />
+                    <DataGridTextColumn Header="تعداد محصول" Binding="{Binding Count}" />
+                    <DataGridTextColumn Header="رنگ محصول" Binding="{Binding Color}" />
+                    <DataGridTextColumn Header="ارتفاع کلی شیء " Binding="{Binding Height}" />
+                    <DataGridTextColumn Header="طول کلی شیء " Binding="{Binding Length}" />
+                    <DataGridTextColumn Header="عرض کلی شیء " Binding="{Binding Width}" />
+                    <DataGridTextColumn Header="عمق کلی شیء" Binding="{Binding Depth}" />
+                    <DataGridTextColumn Header="ضخامت شیء" Binding="{Binding Thickness}" />
+                    <DataGridTextColumn Header="جنس شی" Binding="{Binding Material}" />
+                    <DataGridTextColumn Header="وزن شیء" Binding="{Binding Weight}" />
+                    <DataGridTextColumn Header="نام فارسی تولیدکننده" Binding="{Binding FarsiManufacturerName}" />
+                    <DataGridTextColumn Header="نام انگلیسی تولیدکننده" Binding="{Binding EnglishManufacturerName}" />
+                    <DataGridTextColumn Header="نام توصیفی مدل محصول " Binding="{Binding DescriptiveModelName}" />
+                    <DataGridTextColumn Header="توضیحات" Binding="{Binding Description}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        <Button Content="استعلام قیمت" Height="26" Width="200" FontFamily="B Nazanin">
+                <UIElement.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </UIElement.RenderTransform>
+            </Button>
+        </StackPanel>
+</Window>

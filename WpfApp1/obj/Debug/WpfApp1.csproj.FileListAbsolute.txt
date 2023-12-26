@@ -1,0 +1,7 @@
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\ui.baml
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.cache
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1.g.resources
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+C:\Users\ali\Documents\GitHub\NLBO\NLBO.extension\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
