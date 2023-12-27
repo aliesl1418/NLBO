@@ -1,18 +1,31 @@
+from System import Windows
+from pyrevit import script, UI
+import wpf
 import clr
 clr.AddReference('System.windows.Forms')
 clr.AddReference('IronPython.Wpf')
 
-#find the path of ui.xaml
-from pyrevit import script
-xamlfile = script.get_bundle_file('ui.xaml')
-
-#import wpf creator and base window
-import wpf
-from System import Windows
 
 class MyWindow(Windows.Window):
+     def __init__(self):
+           xamlfile = script.get_bundle_file('ui.xaml1')
+           wpf.LoadComponent(self, xamlfile)
+     def save(self, sender, args):
+           self.project_client_id = self.txt_id.Text
+           self.Close()
+           UI.TaskDialog.Show("hello", "hello{}".format(self.project_client_id))
+
+
+class MyWindow1(Windows.Window):
     def __init__(self):
+        xamlfile = script.get_bundle_file('ui.xaml')
         wpf.LoadComponent(self, xamlfile)
 
-# let's show the windows
-MyWindow().ShowDialog()
+    def save(self, sender, args):
+        self.project_client_id = self.txt_id.Text
+        self.Close()
+        UI.TaskDialog.Show("hello", "hello{}".format(self.project_client_id))
+
+
+
+

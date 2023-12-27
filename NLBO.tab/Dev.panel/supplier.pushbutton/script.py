@@ -9,7 +9,7 @@ from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, 
 import clr
 from pyrevit import forms, revit, DB, script, UI
 from omniclass import *
-from project_client_id import *
+from view import *
 
 x = MyWindow()
 x.ShowDialog()
@@ -122,4 +122,5 @@ if project_client_id:
             formats=['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             last_line_style='color:red;'
         )
-
+y = MyWindow1()
+y.ShowDialog()
