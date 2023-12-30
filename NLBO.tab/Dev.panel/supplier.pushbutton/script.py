@@ -3,9 +3,9 @@ __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
 # -*- coding: utf-8 -*-
-import csv
-import codecs
 import os
+import webbrowser
+import csv
 import re
 import pyrevit
 from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, \
@@ -134,11 +134,13 @@ table.insert(0, ["project_client_id", "omniclass_number", "count", "Color", "Hei
 for num in table:
     num[2] = "{}".format(num[2])
 
+if not os.path.exists("c:/NLBO"):
+    os.mkdir("c:/NLBO")
+if os.path.exists("c:/NLBO/table.csv"):
+    os.remove("c:/NLBO/table.csv")
 
-if os.path.exists("c:/root/table.csv"):
-    os.remove("c:/root/table.csv")
 
-with open("c:/root/table.csv", 'wt') as file:
+with open("c:/NLBO/table.csv", 'wt') as file:
     # Create a writer object
     writer = csv.writer(file)
     # Write the data to the CSV file
@@ -146,9 +148,10 @@ with open("c:/root/table.csv", 'wt') as file:
         if row:
             writer.writerow([s.encode('utf-8') for s in row])
 
+os.system("python C:\Users\ali\Documents\GitHub\procurement\app.py")
 
-# import os
-# os.system("python c:/root/test.py")
+webbrowser.open("http://127.0.0.1:5000")
+
 
 
 
