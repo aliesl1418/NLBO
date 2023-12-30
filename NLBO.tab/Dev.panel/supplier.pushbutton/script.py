@@ -133,7 +133,7 @@ table.insert(0, ["project_client_id", "omniclass_number", "count", "Color", "Hei
                  "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer", "ModelLabel"])
 for num in table:
     num[2] = "{}".format(num[2])
-print(table)
+
 
 if os.path.exists("c:/root/table.csv"):
     os.remove("c:/root/table.csv")
@@ -147,25 +147,8 @@ with open("c:/root/table.csv", 'wt') as file:
             writer.writerow([s.encode('utf-8') for s in row])
 
 
-# import pickle
-# file = open("c:/root/table.txt","wt")
-# pickle.dump(table, file)
-# file.close()
-#
 # import os
 # os.system("python c:/root/test.py")
 
-# -*- coding: utf-8 -*-
 
 
-# # Check if the file exists and remove it
-# if os.path.exists("c:/root/table.csv"):
-#     os.remove("c:/root/table.csv")
-#
-# # Open the file with 'write binary' mode
-# with open("c:/root/table.csv", 'wb') as file:
-#     # Create a writer object
-#     writer = csv.writer(file)
-#     # Write the Persian text to the CSV file
-#     for row in table:
-#         writer.writerow([s.encode('utf-8') for s in row])
