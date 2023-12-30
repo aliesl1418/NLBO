@@ -21,10 +21,10 @@ class MyWindow1(Windows.Window):
         xamlfile = script.get_bundle_file('ui.xaml')
         wpf.LoadComponent(self, xamlfile)
 
-    def save(self, sender, args):
-        self.project_client_id = self.txt_id.Text
-        self.Close()
-        UI.TaskDialog.Show("hello", "hello{}".format(self.project_client_id))
+    # def save(self, sender, args):
+    #     self.project_client_id = self.txt_id.Text
+    #     self.Close()
+    #
 
 
 

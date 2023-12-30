@@ -2,6 +2,10 @@ __title__ = "NLBO supplier"
 __author__ = "Ali Eslamifar"
 __doc__ = """ This is NLBO supllier application"""
 
+# -*- coding: utf-8 -*-
+import csv
+import codecs
+import os
 import re
 import pyrevit
 from Autodesk.Revit.DB import FilteredElementCollector, ParameterValueProvider, FilterStringEquals, \
@@ -51,23 +55,23 @@ if project_client_id:
                     if p.LookupParameter('Height'):
                         Height = p.LookupParameter('Height').AsValueString()
                     else:
-                        Height = 0
+                        Height = "0"
                     if p.LookupParameter('Length'):
                         Length = p.LookupParameter('Length').AsValueString()
                     else:
-                        Length = 0
+                        Length = "0"
                     if p.LookupParameter('Width'):
                         Width = p.LookupParameter('Width').AsValueString()
                     else:
-                        Width = 0
+                        Width = "0"
                     if p.LookupParameter('Depth'):
                         Depth = p.LookupParameter('Depth').AsValueString()
                     else:
-                        Depth = 0
+                        Depth = "0"
                     if p.LookupParameter('Thickness'):
                         Thickness = p.LookupParameter('Thickness').AsValueString()
                     else:
-                        Thickness = 0
+                        Thickness = "0"
                     if p.LookupParameter('Material'):
                         Material = p.LookupParameter('Material').AsValueString()
                     else:
@@ -75,7 +79,7 @@ if project_client_id:
                     if p.LookupParameter('Weight'):
                         Weight = p.LookupParameter('Weight').AsValueString()
                     else:
-                        Weight = 0
+                        Weight = "0"
                     if p.LookupParameter('ManufacturerFa'):
                         ManufacturerFa = p.LookupParameter('ManufacturerFa').AsString()
                     else:
@@ -89,13 +93,14 @@ if project_client_id:
                     else:
                         ModelLabel = "N/A"
 
-
                     for d in table:
                         if d == []:
                             table.remove([])
-                            table.append([project_client_id, omniclass_number, 1,Color,Height,Length,
-                                         Width,Depth,Thickness,Material, Weight,ManufacturerFa,Manufacturer,ModelLabel])
-                        elif d[13] == ModelLabel and d[3] == Color and d[4] == Height and d[5] == Length and d[6] == Width\
+                            table.append([project_client_id, omniclass_number, 1, Color, Height, Length,
+                                          Width, Depth, Thickness, Material, Weight, ManufacturerFa, Manufacturer,
+                                          ModelLabel])
+                        elif d[13] == ModelLabel and d[3] == Color and d[4] == Height and d[5] == Length and d[
+                            6] == Width \
                                 and d[7] == Depth and d[8] == Thickness and d[9] == Material:
                             d[2] = d[2] + 1
                     ModelLabellist = [d[13] for d in table]
@@ -106,21 +111,61 @@ if project_client_id:
                     Depthlist = [d[7] for d in table]
                     Thicknessllist = [d[8] for d in table]
                     Materiallist = [d[9] for d in table]
-                    if ModelLabel not in ModelLabellist or Color not in Colorlist or Height not in Heightlist\
-                            or Length not in Lengthlist or Width not in Widthlist or Depth not in Depthlist or Thickness not in Thicknessllist\
+                    if ModelLabel not in ModelLabellist or Color not in Colorlist or Height not in Heightlist \
+                            or Length not in Lengthlist or Width not in Widthlist or Depth not in Depthlist or Thickness not in Thicknessllist \
                             or Material not in Materiallist:
-                        table.append([project_client_id, omniclass_number, 1,Color,Height,Length,
-                                         Width,Depth,Thickness,Material, Weight,ManufacturerFa,Manufacturer,ModelLabel])
+                        table.append([project_client_id, omniclass_number, 1, Color, Height, Length,
+                                      Width, Depth, Thickness, Material, Weight, ManufacturerFa, Manufacturer,
+                                      ModelLabel])
 
         output = pyrevit.output.get_output()
         output.add_style('body { color: blue; }')
         output.print_table(
             table_data=table,
             title="Object_Data",
-            columns=["project_client_id", "omniclass_number", "count", "Color","Height","Length",
-                                         "Width","Depth","Thickness", "Material","Weight","ManufacturerFa","Manufacturer","ModelLabel"],
+            columns=["project_client_id", "omniclass_number", "count", "Color", "Height", "Length",
+                     "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer",
+                     "ModelLabel"],
             formats=['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             last_line_style='color:red;'
         )
-y = MyWindow1()
-y.ShowDialog()
+table.insert(0, ["project_client_id", "omniclass_number", "count", "Color", "Height", "Length",
+                 "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer", "ModelLabel"])
+for num in table:
+    num[2] = "{}".format(num[2])
+print(table)
+
+if os.path.exists("c:/root/table.csv"):
+    os.remove("c:/root/table.csv")
+
+with open("c:/root/table.csv", 'wt') as file:
+    # Create a writer object
+    writer = csv.writer(file)
+    # Write the data to the CSV file
+    for row in table:
+        if row:
+            writer.writerow([s.encode('utf-8') for s in row])
+
+
+# import pickle
+# file = open("c:/root/table.txt","wt")
+# pickle.dump(table, file)
+# file.close()
+#
+# import os
+# os.system("python c:/root/test.py")
+
+# -*- coding: utf-8 -*-
+
+
+# # Check if the file exists and remove it
+# if os.path.exists("c:/root/table.csv"):
+#     os.remove("c:/root/table.csv")
+#
+# # Open the file with 'write binary' mode
+# with open("c:/root/table.csv", 'wb') as file:
+#     # Create a writer object
+#     writer = csv.writer(file)
+#     # Write the Persian text to the CSV file
+#     for row in table:
+#         writer.writerow([s.encode('utf-8') for s in row])
