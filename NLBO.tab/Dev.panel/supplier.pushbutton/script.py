@@ -30,11 +30,11 @@ if project_client_id:
         object_code = name_code[index_selected]
 
         # Create a message box
-        message_box = forms.alert(
-            object_code,
-            title="omniclass_code",
-            warn_icon=False
-        )
+        # message_box = forms.alert(
+        #     object_code,
+        #     title="omniclass_code",
+        #     warn_icon=False
+        # )
         clr.AddReference('RevitAPI')
         doc = __revit__.ActiveUIDocument.Document
         uidoc = __revit__.ActiveUIDocument
@@ -129,10 +129,10 @@ if project_client_id:
             formats=['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             last_line_style='color:red;'
         )
-table.insert(0, ["project_client_id", "omniclass_number", "count", "Color", "Height", "Length",
+table.insert(0, ["projectclient_id", "omniclass_code", "count", "Color", "Height", "Length",
                  "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer", "ModelLabel"])
-for num in table:
-    num[2] = "{}".format(num[2])
+# for num in table:
+#     num[2] = "{}".format(num[2])
 
 if not os.path.exists("c:/NLBO"):
     os.mkdir("c:/NLBO")
@@ -146,10 +146,8 @@ with open("c:/NLBO/table.csv", 'wt') as file:
     # Write the data to the CSV file
     for row in table:
         if row:
-            writer.writerow([s.encode('utf-8') for s in row])
-
-os.system("python C:\Users\ali\Documents\GitHub\procurement\app.py")
-
+            writer.writerow([str(s).encode('utf-8') for s in row])
+os.system("python C:/Users/ali/Documents/GitHub/procurement/app.py")
 webbrowser.open("http://127.0.0.1:5000")
 
 
