@@ -47,6 +47,7 @@ if project_client_id:
             if re.match("^Autodesk.Revit.DB.FamilyInstance$", t):
                 p = element.Symbol
                 if object_code == p.get_Parameter(BuiltInParameter.OMNICLASS_CODE).AsString():
+                    pp = element
                     omniclass_number = p.get_Parameter(BuiltInParameter.OMNICLASS_CODE).AsString()
                     if p.LookupParameter('Color'):
                         Color = p.LookupParameter('Color').AsString()
@@ -92,16 +93,21 @@ if project_client_id:
                         ModelLabel = p.LookupParameter('ModelLabel').AsString()
                     else:
                         ModelLabel = "N/A"
+                    if pp.LookupParameter('AcquisitionDatePlanned'):
+                        AcquisitionDatePlanned = pp.LookupParameter('AcquisitionDatePlanned').AsString()
+                    else:
+                        AcquisitionDatePlanned = "2000-01-01"
 
                     for d in table:
                         if d == []:
                             table.remove([])
                             table.append([project_client_id, omniclass_number, 1, Color, Height, Length,
                                           Width, Depth, Thickness, Material, Weight, ManufacturerFa, Manufacturer,
-                                          ModelLabel])
+                                          ModelLabel, AcquisitionDatePlanned])
                         elif d[13] == ModelLabel and d[3] == Color and d[4] == Height and d[5] == Length and d[
                             6] == Width \
-                                and d[7] == Depth and d[8] == Thickness and d[9] == Material:
+                                and d[7] == Depth and d[8] == Thickness and d[9] == Material and d[
+                            14] == AcquisitionDatePlanned:
                             d[2] = d[2] + 1
                     ModelLabellist = [d[13] for d in table]
                     Colorlist = [d[3] for d in table]
@@ -111,12 +117,13 @@ if project_client_id:
                     Depthlist = [d[7] for d in table]
                     Thicknessllist = [d[8] for d in table]
                     Materiallist = [d[9] for d in table]
+                    AcquisitionDatePlannedlist = [d[14] for d in table]
                     if ModelLabel not in ModelLabellist or Color not in Colorlist or Height not in Heightlist \
                             or Length not in Lengthlist or Width not in Widthlist or Depth not in Depthlist or Thickness not in Thicknessllist \
-                            or Material not in Materiallist:
+                            or Material not in Materiallist or AcquisitionDatePlanned not in AcquisitionDatePlannedlist:
                         table.append([project_client_id, omniclass_number, 1, Color, Height, Length,
                                       Width, Depth, Thickness, Material, Weight, ManufacturerFa, Manufacturer,
-                                      ModelLabel])
+                                      ModelLabel, AcquisitionDatePlanned])
 
         output = pyrevit.output.get_output()
         output.add_style('body { color: blue; }')
@@ -125,12 +132,13 @@ if project_client_id:
             title="Object_Data",
             columns=["project_client_id", "omniclass_number", "count", "Color", "Height", "Length",
                      "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer",
-                     "ModelLabel"],
+                     "ModelLabel", "AcquisitionDatePlannedlist"],
             formats=['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             last_line_style='color:red;'
         )
-table.insert(0, ["projectclient_id", "omniclass_code", "count", "Color", "Height", "Length",
-                 "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer", "ModelLabel"])
+        table.insert(0, ["projectclient_id", "omniclass_code", "count", "Color", "Height", "Length",
+                         "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer",
+                         "ModelLabel", "AcquisitionDatePlannedlist"])
 # for num in table:
 #     num[2] = "{}".format(num[2])
 
@@ -138,7 +146,6 @@ if not os.path.exists("c:/NLBO"):
     os.mkdir("c:/NLBO")
 if os.path.exists("c:/NLBO/table.csv"):
     os.remove("c:/NLBO/table.csv")
-
 
 with open("c:/NLBO/table.csv", 'wt') as file:
     # Create a writer object
@@ -149,7 +156,3 @@ with open("c:/NLBO/table.csv", 'wt') as file:
             writer.writerow([str(s).encode('utf-8') for s in row])
 os.system("python C:/Users/ali/Documents/GitHub/procurement/app.py")
 webbrowser.open("http://127.0.0.1:5000")
-
-
-
-
