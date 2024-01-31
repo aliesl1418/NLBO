@@ -138,7 +138,7 @@ if project_client_id:
         )
         table.insert(0, ["projectclient_id", "omniclass_code", "count", "Color", "Height", "Length",
                          "Width", "Depth", "Thickness", "Material", "Weight", "ManufacturerFa", "Manufacturer",
-                         "ModelLabel", "AcquisitionDatePlannedlist"])
+                         "ModelLabel", "AcquisitionDatePlanned"])
 # for num in table:
 #     num[2] = "{}".format(num[2])
 
